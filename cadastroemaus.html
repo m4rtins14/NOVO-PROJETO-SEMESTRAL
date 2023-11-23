@@ -10,91 +10,103 @@
     <link class="icone" rel="icon" href="imagens/icone.png">
     <link rel="stylesheet" href="style.css">
 
-    <title>cadastro emaus</title>
+    <title>Cadastro Emaus</title>
 </head>
 <body>
     <main id="container">
         <form id="login_form">
             <div id="form_header">
-                <a><h1>emaus</h1></a>
-                 <i id="mode_icon" class="fa-solid fa-moon"></i>
+                <a><h1>Emaus</h1></a>
             </div>
 
-             <div id="inputs">
+            <div id="inputs">
                 <div class="input-box">
                     <label for="name">
                         Nome do usuário
                         <div class="input-field">
                             <i class="fa-solid fa-user"></i>
-                            <input type="text" id="name" name="name">
+                            <input type="text" id="name" name="name" required>
                         </div>
                     </label>
                 </div>
 
                 <div class="input-box">
                     <label for="email">
-                         E-mail
+                        E-mail
                         <div class="input-field">
                             <i class="fa-solid fa-envelope"></i>
-                             <input type="email" id="email" name="email">
-                         </div>
+                            <input type="email" id="email" name="email" required>
+                        </div>
                     </label>
                 </div>
 
                 <div class="input-box">
-                        <label for="password">
-                            Nova senha
-                            <div class="input-field">
-                                 <i class="fa-solid fa-key"></i>
-                                 <input type="password" id="password" name="password">
-                                </div>
-                            </label>
+                    <label for="password">
+                        Nova senha
+                        <div class="input-field">
+                            <i class="fa-solid fa-key"></i>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                    </label>
+                </div>
 
-                            <label for="password">
-                                Confirmar senha
-                                <div class="input-field">
-                                     <i class="fa-solid fa-key"></i>
-                                     <input type="password" id="password" name="password">
-                                    </div>
-                                </label>
-                            
+                <div class="input-box">
+                    <label for="confirm_password">
+                        Confirmar senha
+                        <div class="input-field">
+                            <i class="fa-solid fa-key"></i>
+                            <input type="password" id="confirm_password" name="confirm_password" required>
+                        </div>
+                    </label>
+                </div>
 
-                            <div id="forgot_password">
-                                <a href="meuloginemaus.html">
-                                   Voltar para login
-                                </a>
-                            </div>
-                            <div id="forgot_password">
-                                <a href="coletivoemaus.html">
-                                    Cancelar
-                                </a>
-                            </div>
-                    </div>
-             </div>
+                <div id="forgot_password">
+                    <a href="meuloginemaus.html">Voltar para login</a>
+                </div>
+                <div id="forgot_password">
+                    <a href="coletivoemaus.html">Cancelar</a>
+                </div>
+            </div>
 
-             <button href="" type="submit" id="login_button">
-                Me cadastrar
-             </button>
-
+            <button type="submit" id="login_button">Me cadastrar</button>
         </form>
     </main>
     <script>
-        const mode = document.getElementById ('mode_icon');
+        const mode = document.getElementById('mode_icon');
 
-        mode.addEventListener ('click', () => {
+        mode.addEventListener('click', () => {
+            const form = document.getElementById('login_form');
+            if (mode.classList.contains('fa-moon')) {
+                mode.classList.remove('fa-moon');
+                mode.classList.add('fa-sun');
+                form.classList.add('dark');
+            } else {
+                mode.classList.add('fa-moon');
+                mode.classList.remove('fa-sun');
+                form.classList.remove('dark');
+            }
+        });
+
         const form = document.getElementById('login_form');
-        if(mode.classList.contains('fa-moon')) {
-        mode.classList.remove('fa-moon');
-        mode.classList.add('fa-sun');
 
-        form.classList.add('dark');
-        return;
-    }
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-    mode.classList.add('fa-moon');
-    mode.classList.remove('fa-sun');
-    form.classList.remove ('dark');
-    });
+            const username = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            if (password !== confirmPassword) {
+                alert('As senhas não coincidem. Tente novamente.');
+                return;
+            }
+
+            localStorage.setItem(username, JSON.stringify({ email, password }));
+
+            alert('Cadastro bem-sucedido! Redirecionando para página de login');
+            window.location.href = 'loginemaus.html';
+        });
     </script>
 </body>
 </html>
