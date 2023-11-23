@@ -29,7 +29,7 @@ const initialPosition = { x: 270, y: 240 };
 let snake = [initialPosition];
 
 const incrementScore = () => {
-    score.innerText = +score.innerText + 10;
+    score.innerText = +score.innerText + 5;
 };
 
 const randomNumber = (min, max) => {
